@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ChatBot Lab7</title>
+    <link rel="stylesheet" href="ChatBotCSS.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<div class="conatiner">
+    <div class="msg-header">
+        <div class="msg-header-img">
+            <img src="user2.jpeg">
+        </div>
+        <div class="active">
+            <h4>Pashka</h4>
+            <h6>3 hours ago..</h6>
+        </div>
+        <div class="header-icons">
+            <i class="fa fa-phone"></i>
+            <i class="fa fa-video-camera"></i>
+            <i class="fa fa-info-circle"></i>
+        </div>
+    </div>
+
+    <div class="chat-page">
+        <div class="msg-inbox">
+            <div class="chats">
+                <div class="msg-page">
+
+                    <div class="recieved-chats">
+                        <div class="recieved-chats-img">
+                            <img src="user2.jpeg">
+                        </div>
+                        <div class="recieved-msg">
+                            <div class="recieved-msg-inbox">
+                                <p id="text1-comp">Hi !! This is my 1st personal message from me </p>
+                                <span class="time">11:01 PM | December 23</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="outgoing-chats" style="display: none;" id="outgoing1" onclick="delete_msg1()" >
+
+                        <div class="outgoing-chats-msg">
+                            <p id="text1-user">Hi !! This is my 1st personal message from user</p>
+                            <span class="time">11:01 PM | December 23</span>
+                        </div>
+                        <div class="outgoing-chats-img">
+                            <img src="user.png">
+                        </div>
+                    </div>
+
+                    <div class="recieved-chats" style="display: none;" id="ingoing2">
+                        <div class="recieved-chats-img">
+                            <img src="user2.jpeg">
+                        </div>
+                        <div class="recieved-msg">
+                            <div class="recieved-msg-inbox">
+                                <p id="text2-comp">Hi !! This is my 2nd personal message from me</p>
+                                <span class="time">11:01 PM | December 23</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="outgoing-chats" style="display: none;" id="outgoing2" onclick="delete_msg2()">
+                        <div class="outgoing-chats-msg">
+                            <p id="text2-user">Hi !! This is my 2nd personal message from user</p>
+                            <span class="time">11:01 PM | December 23</span>
+                        </div>
+                        <div class="outgoing-chats-img">
+                            <img src="user.png">
+                        </div>
+                    </div>
+
+                    <div class="recieved-chats" style="display: none;" id="ingoing3">
+                        <div class="recieved-chats-img">
+                            <img src="user2.jpeg">
+                        </div>
+                        <div class="recieved-msg">
+                            <div class="recieved-msg-inbox">
+                                <p id="text3-comp">reply3</p>
+                                <span class="time">11:01 PM | December 23</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="msg-bottom">
+
+            <div class="bottom-icons">
+                <i class="fa fa-plus-circle"></i>
+                <i class="fa fa-camera"></i>
+                <i class="fa fa-microphone"></i>
+                <i class="fa fa-smile-o"></i>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="main-input" class="form-control" placeholder="write message..." onfocus="this.value=''" >
+                <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="fa fa-paper-plane" onclick="displayMessage()"></i>
+                        </span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    function getRandomItem(arr) {
+        const randomIndex = Math.floor(Math.random() * arr.length);
+        const item = arr[randomIndex];
+        return item;
+    }
+
+
+    function generate_string() {
+        var fruit = ["banana", "apple", "pears", "grapefruit"];
+        var letter = ["1", "2", "3", "4"];
+        var country = ["Russia", "Cyprus", "USA", "Germany"];
+
+        var res = getRandomItem(fruit) + " " + getRandomItem(letter) + " " + getRandomItem(country)
+
+        return res
+    }
+
+
+    let cnt=0
+    var delayInMilliseconds = 1000; //1 second
+    function displayMessage() {
+        var input = document.getElementById('main-input').value;
+
+
+        cnt = cnt + 1
+        if(cnt > 2)
+        {
+            var msgbox2 = document.getElementById('text2-user').innerHTML
+            document.getElementById('text1-user').innerHTML = msgbox2
+            document.getElementById('text2-user').innerHTML = input
+
+            let msgbox2_comp = document.getElementById('text2-comp').innerHTML
+            document.getElementById('text1-comp').innerHTML = msgbox2_comp
+
+            let msgbox3_comp = document.getElementById('text3-comp').innerHTML
+            document.getElementById('text2-comp').innerHTML = msgbox3_comp
+
+            setTimeout(function() {
+                //your code to be executed after 1 second
+                document.getElementById('text3-comp').innerHTML = generate_string()
+            }, delayInMilliseconds);
+
+        }
+        else if(cnt == 2)
+        {
+            document.getElementById("outgoing2").style.display = "block"
+            document.getElementById('text2-user').innerHTML = input
+            setTimeout(function() {
+                //your code to be executed after 1 second
+                document.getElementById("ingoing3").style.display = "block"
+                document.getElementById('text3-comp').innerHTML = generate_string()
+            }, delayInMilliseconds);
+
+            console.log(cnt + " case2")
+        }
+        else
+        {
+            document.getElementById("outgoing1").style.display = "block"
+            document.getElementById('text1-user').innerHTML = input
+            setTimeout(function() {
+                //your code to be executed after 1 second
+                document.getElementById("ingoing2").style.display = "block"
+                document.getElementById('text2-comp').innerHTML = generate_string()
+            }, delayInMilliseconds);
+
+        }
+        console.log(cnt + " counter")
+    }
+
+    function delete_msg2() {
+        document.getElementById("outgoing2").style.display = "none"
+        document.getElementById("ingoing3").style.display = "none"
+        cnt=1
+    }
+
+    function delete_msg1() {
+
+        console.log(cnt + " check!!!")
+
+        let del_user = document.getElementById('text2-user').innerHTML
+        let del_comp = document.getElementById('text3-comp').innerHTML
+        document.getElementById('text1-user').innerHTML = del_user
+        document.getElementById('text2-comp').innerHTML = del_comp
+
+        document.getElementById("outgoing2").style.display = "none"
+        document.getElementById("ingoing3").style.display = "none"
+        cnt=1
+    }
+
+</script>
+
+
+</body>
+</html>
